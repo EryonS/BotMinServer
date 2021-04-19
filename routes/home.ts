@@ -12,8 +12,4 @@ const missingBackupCode = require("./utils/missingBackupCode");
 const User = mongoose.model("User");
 const router = express.Router();
 
-router.put("/profile", (req, res) => {});
-
-router.post("/", async (req, res) => {});
-
 module.exports = router;
