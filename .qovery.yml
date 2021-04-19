@@ -1,12 +1,11 @@
 ---
 application:
   name: "botminserver"
-  project: "BotmindExercice"
+  project: "botmind-app"
   organization: "QoveryCommunity"
 databases:
 - type: "MONGODB"
   name: "db"
-  version: "4.4"
 routers:
 - name: "main-botminserver"
   routes:
