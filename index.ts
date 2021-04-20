@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
+import helmet from "helmet";
 
 // mongoose.connect("mongodb://localhost:27017/db", {
 //   useCreateIndex: true,
@@ -10,12 +11,15 @@ import bodyParser from "body-parser";
 //   useFindAndModify: true,
 // });
 
-mongoose.connect("mongodb://root:WbRjp9CAoiH82VOZ@db-eq5fy06tnk9rdnrk-svc.qovery.io:27017/db", {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: true,
-});
+mongoose.connect(
+  "mongodb://root:WbRjp9CAoiH82VOZ@db-eq5fy06tnk9rdnrk-svc.qovery.io:27017/db",
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: true,
+  }
+);
 
 const db = mongoose.connection;
 db.on("error", (err) => {
@@ -26,6 +30,7 @@ const app = express();
 const PORT = 1000;
 
 app.use(cors());
+app.use(helmet());
 app.use(
   bodyParser.urlencoded({
     extended: true,
