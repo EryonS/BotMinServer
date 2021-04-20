@@ -3,7 +3,14 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 
-mongoose.connect("mongodb://localhost:27017/db", {
+// mongoose.connect("mongodb://localhost:27017/db", {
+//   useCreateIndex: true,
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useFindAndModify: true,
+// });
+
+mongoose.connect("mongodb://root:WbRjp9CAoiH82VOZ@db-eq5fy06tnk9rdnrk-svc.qovery.io:27017/db", {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
