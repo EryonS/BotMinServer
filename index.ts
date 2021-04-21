@@ -29,9 +29,18 @@ db.on("error", (err) => {
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(cors({
-  origin: ['botmind-app.herokuapp.com']
-}));
+app.use(
+  cors({
+    credentials: true,
+    origin: (origin, callback) => {
+      if (origin === "https://botmind-app.herokuapp.com") {
+        return callback(null, true);
+      }
+
+      callback(new Error("NOT ALLOWED"));
+    },
+  })
+);
 app.use(helmet());
 app.use(
   bodyParser.urlencoded({
