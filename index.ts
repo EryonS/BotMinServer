@@ -12,7 +12,7 @@ import helmet from "helmet";
 // });
 
 mongoose.connect(
-  "mongodb://root:WbRjp9CAoiH82VOZ@db-eq5fy06tnk9rdnrk-svc.qovery.io:27017/db",
+  "mongodb+srv://mongo-admin:mongoPass14789@cluster0.hi9br.mongodb.net/db?retryWrites=true&w=majority",
   {
     useCreateIndex: true,
     useNewUrlParser: true,
