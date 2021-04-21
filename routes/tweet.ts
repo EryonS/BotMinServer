@@ -20,10 +20,14 @@ router.get("/tweet/getMoreTweets/:skip", async (req: any, res) => {
   }
   const tweets = await Tweet.find({})
     .sort({ createdAt: -1 })
-    .skip(req.params.skip)
+    .skip(+req.params.skip)
     .limit(10);
 
-  return res.send(tweets);
+  if (!tweets.length) {
+    return res.json({ message: "stop" });
+  }
+
+  return res.json({ tweets });
 });
 
 router.post("/tweet/publish-tweet", (req: any, res) => {
@@ -59,7 +63,16 @@ router.put("/tweet/update-tweet", async (req, res) => {
   return res.status(200).json(tweet);
 });
 
-router.delete("/tweet/delete-tweet/:tweet_id", (req, res) => {
+router.delete("/tweet/delete-tweet/:tweet_id", async (req: any, res) => {
+  const tweet = await Tweet.findOne({
+    _id: req.params.tweet_id,
+    "user._id": req.user._id.toString(),
+  });
+
+  if (!tweet) {
+    return res.status(500).json({ message: "unauthorized" });
+  }
+
   Tweet.findOneAndDelete({ _id: req.params.tweet_id })
     .then(() => {
       return res.status(200).json({ message: "tweet_deleted" });

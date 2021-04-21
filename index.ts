@@ -29,11 +29,16 @@ db.on("error", (err) => {
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+const allowList = [
+  "https://botmind-app.herokuapp.com",
+  "http://localhost:4200",
+];
+
 app.use(
   cors({
     credentials: true,
     origin: (origin, callback) => {
-      if (origin === "https://botmind-app.herokuapp.com") {
+      if (origin && allowList.includes(origin)) {
         return callback(null, true);
       }
 
