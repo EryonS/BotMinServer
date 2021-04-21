@@ -27,7 +27,7 @@ db.on("error", (err) => {
 });
 
 const app = express();
-const PORT = 1000;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(helmet());
