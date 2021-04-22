@@ -49,18 +49,27 @@ router.post("/tweet/publish-tweet", (req: any, res) => {
     });
 });
 
-router.put("/tweet/update-tweet", async (req, res) => {
+router.put("/tweet/update-tweet", async (req: any, res) => {
   if (!req.body._id || !req.body.message) {
     return res.status(500).send();
   }
 
-  const tweet = await Tweet.findOneAndUpdate(
+  const tweet = await Tweet.findOne({
+    _id: req.body._id,
+    "user._id": req.user._id.toString(),
+  });
+
+  if (!tweet) {
+    return res.status(500).json({ message: "unauthorized" });
+  }
+
+  const newTweet = await Tweet.findOneAndUpdate(
     { _id: req.body._id },
     { message: req.body.message },
     { new: true }
   );
 
-  return res.status(200).json(tweet);
+  return res.status(200).json(newTweet);
 });
 
 router.delete("/tweet/delete-tweet/:tweet_id", async (req: any, res) => {
